@@ -8,13 +8,17 @@
 </head>
 <body>
   <header>
-    <h1>🚙 Car Builder</h1>
-    <div class="toolbar">
-      <button class="toolbar-btn" onclick="startNewBuild()">New Build</button>
-      <button class="toolbar-btn" onclick="clearAllParts()">Clear All Parts</button>
-      <button class="toolbar-btn disabled" onclick="showLoginPopup()">Save Build</button>
-      <button class="toolbar-btn disabled" onclick="showLoginPopup()">Load Build</button>
+    <div class="header-left">
+      <h1>🚙 Car Builder</h1>
+      <div class="toolbar">
+        <button class="toolbar-btn" onclick="promptBuildName()">New Build</button>
+        <button class="toolbar-btn" onclick="clearAllParts()">Clear All Parts</button>
+        <button id="save-btn" class="toolbar-btn disabled" onclick="showSaveBuildPopup()">Save Build</button>
+        <button id="load-btn" class="toolbar-btn disabled" onclick="handleLoad()">Load Build</button>
+        <button id="saved-btn" class="toolbar-btn disabled" onclick="showSavedBuilds()">Saved Builds</button>
+      </div>
     </div>
+    <div class="user-controls" id="user-controls"></div>
   </header>
 
   <main>
@@ -22,62 +26,67 @@
       <div class="compatibility-bar success" id="compatibility-status">
         ✅ Compatibility: No issues or incompatibilities found.
       </div>
-
       <section class="builder-table">
         <table>
           <thead>
-            <tr>
-              <th>Component</th>
-              <th>Selection</th>
-              <th>Price</th>
-            </tr>
+            <tr><th>Component</th><th>Selection</th><th>Price</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Engine</td>
-              <td id="engine-cell"></td>
-              <td id="engine-price">—</td>
-            </tr>
-            <tr>
-              <td>Transmission</td>
-              <td id="transmission-cell"></td>
-              <td id="transmission-price">—</td>
-            </tr>
-            <tr>
-              <td>Suspension</td>
-              <td id="suspension-cell"></td>
-              <td id="suspension-price">—</td>
-            </tr>
-            <tr>
-              <td>Brakes</td>
-              <td id="brakes-cell"></td>
-              <td id="brakes-price">—</td>
-            </tr>
-            <tr>
-              <td>Wheels</td>
-              <td id="wheels-cell"></td>
-              <td id="wheels-price">—</td>
-            </tr>
-            <tr>
-              <td>Frame (Chassis)</td>
-              <td id="frame-cell"></td>
-              <td id="frame-price">—</td>
-            </tr>
+            <tr><td>Engine</td><td id="engine-cell"></td><td id="engine-price">—</td></tr>
+            <tr><td>Transmission</td><td id="transmission-cell"></td><td id="transmission-price">—</td></tr>
+            <tr><td>Suspension</td><td id="suspension-cell"></td><td id="suspension-price">—</td></tr>
+            <tr><td>Brakes</td><td id="brakes-cell"></td><td id="brakes-price">—</td></tr>
+            <tr><td>Wheels</td><td id="wheels-cell"></td><td id="wheels-price">—</td></tr>
+            <tr><td>Frame (Chassis)</td><td id="frame-cell"></td><td id="frame-price">—</td></tr>
           </tbody>
         </table>
-
         <div class="total-cost">
           <h2>Total Cost: <span id="total-cost">$0 AUD</span></h2>
-        </div>
+          <h3>Estimated Top Speed: <span id="top-speed">—</span></h3>
+</div>
+
       </section>
     </div>
   </main>
 
-  <!-- Login Required Popup -->
-  <div id="popup" class="popup-overlay" style="display: none;">
+  <!-- Login/Register -->
+  <div id="auth-popup" class="popup-overlay" style="display: none;">
     <div class="popup-box">
-      <p><strong>🔒 You must login to use this feature.</strong></p>
-      <button onclick="closePopup()" class="select-btn">OK</button>
+      <h2 id="auth-mode-title">Login</h2>
+      <input id="auth-username" type="text" placeholder="Username" class="auth-input"><br>
+      <input id="auth-password" type="password" placeholder="Password" class="auth-input"><br>
+      <button onclick="submitAuth()" class="popup-ok-btn">Submit</button>
+      <p style="margin-top: 1rem;">
+        <a href="#" onclick="toggleAuthMode()" style="color: #58a6ff;">Switch to Register</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Name Build -->
+  <div id="name-build-popup" class="popup-overlay" style="display: none;">
+    <div class="popup-box">
+      <h2>Name Your Build</h2>
+      <input id="new-build-name" type="text" class="auth-input" placeholder="e.g. Drift Monster">
+      <button onclick="submitBuildName()" class="popup-ok-btn">Start Build</button>
+    </div>
+  </div>
+
+  <!-- Save Build -->
+  <div id="save-popup" class="popup-overlay" style="display: none;">
+    <div class="popup-box">
+      <h2>Save Build</h2>
+      <p>Optional note:</p>
+      <textarea id="save-note" class="auth-input" placeholder="e.g. my weekend car"></textarea><br>
+      <button onclick="saveBuild()" class="popup-ok-btn">Save</button>
+    </div>
+  </div>
+
+  <!-- Saved Builds -->
+  <div id="saved-builds-popup" class="popup-overlay" style="display: none;">
+    <div class="popup-box" style="max-height: 80vh; overflow-y: auto;">
+      <h2>Saved Builds</h2>
+      <div id="saved-builds-list" style="text-align: left; font-size: 0.95rem;"></div>
+      <button onclick="closePopup('saved-builds-popup')" class="popup-ok-btn">Close</button>
     </div>
   </div>
 
@@ -92,57 +101,60 @@
     };
 
     const prices = {
-      "Honda K20C1": 6500,
-      "Toyota 2JZ-GTE": 8500,
-      "Tremec T56": 5000,
-      "ZF 8HP": 6500,
-      "Bilstein B16": 2800,
-      "KW V3 Coilovers": 3600,
-      "Brembo GT Kit": 4200,
-      "Wilwood Superlite": 3000,
-      "BBS LM": 5500,
-      "Volk TE37": 4800,
-      "Mazda MX-5 Chassis": 3200,
-      "BMW E30 Shell": 4000
+      "Honda K20C1": 6500, "Toyota 2JZ-GTE": 8500,
+      "Tremec T56": 5000, "ZF 8HP": 6500,
+      "Bilstein B16": 2800, "KW V3 Coilovers": 3600,
+      "Brembo GT Kit": 4200, "Wilwood Superlite": 3000,
+      "BBS LM": 5500, "Volk TE37": 4800,
+      "Mazda MX-5 Chassis": 3200, "BMW E30 Shell": 4000
     };
 
-    function startNewBuild() {
-      localStorage.setItem('builder_visible', 'true');
+    function promptBuildName() {
+      document.getElementById("new-build-name").value = "";
+      document.getElementById("name-build-popup").style.display = "flex";
+    }
+
+    function submitBuildName() {
+      const name = document.getElementById("new-build-name").value.trim();
+      if (!name) return alert("Please enter a name.");
+      localStorage.setItem("current_build_name", name);
+      localStorage.setItem("builder_visible", "true");
       document.getElementById("builder-section").style.display = "block";
+      closePopup("name-build-popup");
       loadBuild();
     }
 
     function clearAllParts() {
-      for (const part in parts) {
-        localStorage.removeItem(parts[part].key);
-      }
+      for (const part in parts) localStorage.removeItem(parts[part].key);
       localStorage.removeItem('builder_visible');
+      localStorage.removeItem('current_build_name');
       location.reload();
     }
 
     function loadBuild() {
       let total = 0;
-
       for (const part in parts) {
         const name = localStorage.getItem(parts[part].key);
         const cell = document.getElementById(`${part}-cell`);
         const priceCell = document.getElementById(`${part}-price`);
-
         if (name) {
-          const partPrice = prices[name] || 0;
-          total += partPrice;
-          cell.innerHTML = `
-            <span>${name}</span>
-            <button class="select-btn" style="margin-left:1rem;" onclick="removePart('${part}')">❌ Remove</button>
-          `;
-          priceCell.textContent = `$${partPrice.toLocaleString()} AUD`;
+          const price = prices[name] || 0;
+          total += price;
+          cell.innerHTML = `${name} <button class="select-btn" onclick="removePart('${part}')">❌</button>`;
+          priceCell.textContent = `$${price.toLocaleString()} AUD`;
         } else {
-          cell.innerHTML = `<a class="select-btn" href="${part}.html">+ Choose ${capitalize(part)}</a>`;
+          cell.innerHTML = `<a class="select-btn" href="${part}.html">+ Choose ${part}</a>`;
           priceCell.textContent = "—";
         }
       }
-
       document.getElementById("total-cost").textContent = `$${total.toLocaleString()} AUD`;
+
+// Estimate top speed based on engine
+let engine = localStorage.getItem(parts.engine.key);
+let topSpeed = "—";
+if (engine === "Honda K20C1") topSpeed = Math.round(306 * 0.4 + 120) + " km/h";
+if (engine === "Toyota 2JZ-GTE") topSpeed = Math.round(320 * 0.4 + 120) + " km/h";
+document.getElementById("top-speed").textContent = topSpeed;
     }
 
     function removePart(part) {
@@ -150,27 +162,169 @@
       loadBuild();
     }
 
-    function capitalize(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1).replace('_', ' ');
+    function showSaveBuildPopup() {
+      if (!localStorage.getItem("current_user")) {
+        alert("You must log in to use this feature.");
+        return;
+      }
+      document.getElementById("save-note").value = "";
+      document.getElementById("save-popup").style.display = "flex";
+    }
+
+    function saveBuild() {
+      const user = localStorage.getItem("current_user");
+      const builds = JSON.parse(localStorage.getItem(`builds_${user}`) || "[]");
+      const note = document.getElementById("save-note").value.trim();
+      const name = localStorage.getItem("current_build_name") || "Unnamed Build";
+
+      let build = { name, note, total: 0 };
+      for (const part in parts) {
+        const value = localStorage.getItem(parts[part].key);
+        if (value) build[part] = value;
+        build.total += prices[value] || 0;
+      }
+
+      builds.push(build);
+      localStorage.setItem(`builds_${user}`, JSON.stringify(builds));
+      closePopup("save-popup");
+      alert("Build saved!");
+    }
+
+    function showSavedBuilds() {
+  const user = localStorage.getItem("current_user");
+  const builds = JSON.parse(localStorage.getItem(`builds_${user}`) || "[]");
+  const list = document.getElementById("saved-builds-list");
+  if (!builds.length) {
+    list.innerHTML = `<p>No saved builds.</p>`;
+    return;
+  }
+
+  list.innerHTML = builds.map((b, i) => {
+    // Determine top speed
+    let topSpeed = "—";
+    if (b.engine === "Honda K20C1") topSpeed = Math.round(306 * 0.4 + 120) + " km/h";
+    if (b.engine === "Toyota 2JZ-GTE") topSpeed = Math.round(320 * 0.4 + 120) + " km/h";
+
+    return `
+      <div style="margin-bottom: 1rem;">
+        <strong>${b.name}</strong><br>
+        ${Object.keys(parts).map(p => b[p] ? `${p}: ${b[p]}<br>` : "").join("")}
+        Total: $${b.total.toLocaleString()} AUD<br>
+        Estimated Top Speed: ${topSpeed}<br>
+        ${b.note ? `<em>Note: ${b.note}</em><br>` : ""}
+        <button onclick="editBuild(${i})">✏️</button>
+        <button onclick="deleteBuild(${i})">🗑️</button>
+      </div>
+    `;
+  }).join("");
+
+  document.getElementById("saved-builds-popup").style.display = "flex";
+}
+
+
+    function editBuild(index) {
+      const user = localStorage.getItem("current_user");
+      const builds = JSON.parse(localStorage.getItem(`builds_${user}`) || "[]");
+      const build = builds[index];
+      const newName = prompt("Edit build name:", build.name);
+      const newNote = prompt("Edit build note:", build.note || "");
+      if (newName !== null) builds[index].name = newName;
+      if (newNote !== null) builds[index].note = newNote;
+      localStorage.setItem(`builds_${user}`, JSON.stringify(builds));
+      showSavedBuilds();
+    }
+
+    function deleteBuild(index) {
+      const user = localStorage.getItem("current_user");
+      let builds = JSON.parse(localStorage.getItem(`builds_${user}`) || "[]");
+      if (confirm("Are you sure?")) {
+        builds.splice(index, 1);
+        localStorage.setItem(`builds_${user}`, JSON.stringify(builds));
+        showSavedBuilds();
+      }
+    }
+
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    // Login/Register
+    let authMode = "login";
+    function toggleAuthMode() {
+      authMode = authMode === "login" ? "register" : "login";
+      updateAuthUI();
+    }
+
+    function updateAuthUI() {
+      document.getElementById("auth-mode-title").innerText = authMode === "login" ? "Login" : "Register";
+    }
+
+    function showAuthPopup() {
+      document.getElementById("auth-popup").style.display = "flex";
+    }
+
+    function submitAuth() {
+      const username = document.getElementById("auth-username").value.trim();
+      const password = document.getElementById("auth-password").value.trim();
+      if (!username || !password) return alert("Fill in all fields.");
+      let users = JSON.parse(localStorage.getItem("user_db") || "{}");
+
+      if (authMode === "register") {
+        if (users[username]) return alert("User exists.");
+        users[username] = password;
+        localStorage.setItem("user_db", JSON.stringify(users));
+        localStorage.setItem("current_user", username);
+      } else {
+        if (users[username] !== password) return alert("Wrong login.");
+        localStorage.setItem("current_user", username);
+      }
+
+      closePopup("auth-popup");
+      updateUserUI();
+    }
+
+    function updateUserUI() {
+      const user = localStorage.getItem("current_user");
+      const userUI = document.getElementById("user-controls");
+      const disableList = ["save-btn", "load-btn", "saved-btn"];
+      if (user) {
+        userUI.innerHTML = `Logged in as <strong>${user}</strong> <a href=\"#\" onclick=\"logout()\">(Logout)</a>`;
+        disableList.forEach(id => document.getElementById(id).classList.remove("disabled"));
+      } else {
+        userUI.innerHTML = `<a href=\"#\" onclick=\"showAuthPopup()\">Login / Register</a>`;
+        disableList.forEach(id => document.getElementById(id).classList.add("disabled"));
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("current_user");
+      updateUserUI();
+    }
+
+    function handleLoad() {
+      const user = localStorage.getItem("current_user");
+      const builds = JSON.parse(localStorage.getItem(`builds_${user}`) || "[]");
+      if (!builds.length) return alert("No builds saved.");
+      const build = builds[builds.length - 1]; // Load most recent
+      for (const part in parts) {
+        if (build[part]) localStorage.setItem(parts[part].key, build[part]);
+      }
+      localStorage.setItem("builder_visible", "true");
+      localStorage.setItem("current_build_name", build.name);
+      loadBuild();
+      document.getElementById("builder-section").style.display = "block";
     }
 
     function checkIfBuilderShouldBeVisible() {
-      const shouldShow = localStorage.getItem('builder_visible') === 'true';
-      const anyPartSelected = Object.values(parts).some(part => localStorage.getItem(part.key));
-      if (shouldShow || anyPartSelected) {
+      const show = localStorage.getItem("builder_visible") === "true";
+      const hasParts = Object.values(parts).some(p => localStorage.getItem(p.key));
+      if (show || hasParts) {
         document.getElementById("builder-section").style.display = "block";
         loadBuild();
       }
     }
 
-    function showLoginPopup() {
-      document.getElementById("popup").style.display = "flex";
-    }
-
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
-
+    updateUserUI();
     checkIfBuilderShouldBeVisible();
   </script>
 </body>
