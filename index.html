@@ -3,29 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Car Builder App</title>
+  <title>Car Builder</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>🚙 Car Builder</h1>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Start Building</a>
-      <a href="#">About</a>
-    </nav>
   </header>
 
   <main>
-    <section class="hero">
-      <h2>Build Your Dream Car</h2>
-      <p>Select from compatible parts and assemble your perfect ride.</p>
-      <a href="#" class="button">Start Now</a>
+    <div class="compatibility-bar success">
+      ✅ Compatibility: No issues or incompatibilities found.
+    </div>
+
+    <section class="builder-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Selection</th>
+            <th>Price</th>
+            <th>Where to Buy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Engine</td>
+            <td><a class="select-btn" href="engine.html">+ Choose an Engine</a></td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Transmission</td>
+            <td><a class="select-btn" href="transmission.html">+ Choose a Transmission</a></td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Suspension</td>
+            <td><a class="select-btn" href="suspension.html">+ Choose Suspension</a></td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Brakes</td>
+            <td><a class="select-btn" href="brakes.html">+ Choose Brakes</a></td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Wheels</td>
+            <td><a class="select-btn" href="wheels.html">+ Choose Wheels</a></td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Frame (Chassis)</td>
+            <td><a class="select-btn" href="frame.html">+ Choose a Frame</a></td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </main>
-
-  <footer>
-    <p>&copy; 2025 Car Builder App. All rights reserved.</p>
-  </footer>
 </body>
 </html>
