@@ -108,3 +108,90 @@ th {
 .select-btn:hover {
   background-color: #2ea043;
 }
+
+.total-cost {
+  text-align: right;
+  margin-top: 2rem;
+  margin-right: 2rem;
+  font-size: 1.2rem;
+  color: #c9d1d9;
+}
+
+.toolbar {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  padding-left: 2rem;
+}
+
+.toolbar-btn {
+  background-color: #238636;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toolbar-btn:hover {
+  background-color: #2ea043;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.popup-box {
+  background-color: #161b22;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  color: #ffffff;
+  text-align: center;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.5);
+  transform: scale(0.95);
+  animation: popIn 0.25s ease forwards;
+}
+
+.popup-box p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.popup-box button {
+  background-color: #238636;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.popup-box button:hover {
+  background-color: #2ea043;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

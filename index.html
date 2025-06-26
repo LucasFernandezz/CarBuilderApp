@@ -9,90 +9,169 @@
 <body>
   <header>
     <h1>🚙 Car Builder</h1>
+    <div class="toolbar">
+      <button class="toolbar-btn" onclick="startNewBuild()">New Build</button>
+      <button class="toolbar-btn" onclick="clearAllParts()">Clear All Parts</button>
+      <button class="toolbar-btn disabled" onclick="showLoginPopup()">Save Build</button>
+      <button class="toolbar-btn disabled" onclick="showLoginPopup()">Load Build</button>
+    </div>
   </header>
 
   <main>
-    <div class="compatibility-bar success" id="compatibility-status">
-      ✅ Compatibility: No issues or incompatibilities found.
-    </div>
+    <div id="builder-section" style="display: none;">
+      <div class="compatibility-bar success" id="compatibility-status">
+        ✅ Compatibility: No issues or incompatibilities found.
+      </div>
 
-    <section class="builder-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Component</th>
-            <th>Selection</th>
-            <th>Price</th>
-            <th>Where to Buy</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Engine</td>
-            <td id="engine-cell"></td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td>Transmission</td>
-            <td id="transmission-cell"></td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td>Suspension</td>
-            <td id="suspension-cell"></td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td>Brakes</td>
-            <td id="brakes-cell"></td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td>Wheels</td>
-            <td id="wheels-cell"></td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td>Frame (Chassis)</td>
-            <td id="frame-cell"></td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+      <section class="builder-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Selection</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Engine</td>
+              <td id="engine-cell"></td>
+              <td id="engine-price">—</td>
+            </tr>
+            <tr>
+              <td>Transmission</td>
+              <td id="transmission-cell"></td>
+              <td id="transmission-price">—</td>
+            </tr>
+            <tr>
+              <td>Suspension</td>
+              <td id="suspension-cell"></td>
+              <td id="suspension-price">—</td>
+            </tr>
+            <tr>
+              <td>Brakes</td>
+              <td id="brakes-cell"></td>
+              <td id="brakes-price">—</td>
+            </tr>
+            <tr>
+              <td>Wheels</td>
+              <td id="wheels-cell"></td>
+              <td id="wheels-price">—</td>
+            </tr>
+            <tr>
+              <td>Frame (Chassis)</td>
+              <td id="frame-cell"></td>
+              <td id="frame-price">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="total-cost">
+          <h2>Total Cost: <span id="total-cost">$0 AUD</span></h2>
+        </div>
+      </section>
+    </div>
   </main>
 
+  <!-- Login Required Popup -->
+  <div id="popup" class="popup-overlay" style="display: none;">
+    <div class="popup-box">
+      <p><strong>🔒 You must login to use this feature.</strong></p>
+      <button onclick="closePopup()" class="select-btn">OK</button>
+    </div>
+  </div>
+
   <script>
-    const parts = ['engine', 'transmission', 'suspension', 'brakes', 'wheels', 'frame'];
+    const parts = {
+      engine: { key: "selected_engine" },
+      transmission: { key: "selected_transmission" },
+      suspension: { key: "selected_suspension" },
+      brakes: { key: "selected_brakes" },
+      wheels: { key: "selected_wheels" },
+      frame: { key: "selected_frame" }
+    };
 
-    parts.forEach(part => {
-      const saved = localStorage.getItem(`selected_${part}`);
-      const cell = document.getElementById(`${part}-cell`);
+    const prices = {
+      "Honda K20C1": 6500,
+      "Toyota 2JZ-GTE": 8500,
+      "Tremec T56": 5000,
+      "ZF 8HP": 6500,
+      "Bilstein B16": 2800,
+      "KW V3 Coilovers": 3600,
+      "Brembo GT Kit": 4200,
+      "Wilwood Superlite": 3000,
+      "BBS LM": 5500,
+      "Volk TE37": 4800,
+      "Mazda MX-5 Chassis": 3200,
+      "BMW E30 Shell": 4000
+    };
 
-      if (saved) {
-        cell.innerHTML = `
-          <span>${saved}</span>
-          <button class="select-btn" style="margin-left:1rem;" onclick="removePart('${part}')">❌ Remove</button>
-        `;
-      } else {
-        cell.innerHTML = `<a class="select-btn" href="${part}.html">+ Choose ${capitalize(part)}</a>`;
+    function startNewBuild() {
+      localStorage.setItem('builder_visible', 'true');
+      document.getElementById("builder-section").style.display = "block";
+      loadBuild();
+    }
+
+    function clearAllParts() {
+      for (const part in parts) {
+        localStorage.removeItem(parts[part].key);
       }
-    });
+      localStorage.removeItem('builder_visible');
+      location.reload();
+    }
+
+    function loadBuild() {
+      let total = 0;
+
+      for (const part in parts) {
+        const name = localStorage.getItem(parts[part].key);
+        const cell = document.getElementById(`${part}-cell`);
+        const priceCell = document.getElementById(`${part}-price`);
+
+        if (name) {
+          const partPrice = prices[name] || 0;
+          total += partPrice;
+          cell.innerHTML = `
+            <span>${name}</span>
+            <button class="select-btn" style="margin-left:1rem;" onclick="removePart('${part}')">❌ Remove</button>
+          `;
+          priceCell.textContent = `$${partPrice.toLocaleString()} AUD`;
+        } else {
+          cell.innerHTML = `<a class="select-btn" href="${part}.html">+ Choose ${capitalize(part)}</a>`;
+          priceCell.textContent = "—";
+        }
+      }
+
+      document.getElementById("total-cost").textContent = `$${total.toLocaleString()} AUD`;
+    }
+
+    function removePart(part) {
+      localStorage.removeItem(`selected_${part}`);
+      loadBuild();
+    }
 
     function capitalize(str) {
       return str.charAt(0).toUpperCase() + str.slice(1).replace('_', ' ');
     }
 
-    function removePart(part) {
-      localStorage.removeItem(`selected_${part}`);
-      location.reload();
+    function checkIfBuilderShouldBeVisible() {
+      const shouldShow = localStorage.getItem('builder_visible') === 'true';
+      const anyPartSelected = Object.values(parts).some(part => localStorage.getItem(part.key));
+      if (shouldShow || anyPartSelected) {
+        document.getElementById("builder-section").style.display = "block";
+        loadBuild();
+      }
     }
+
+    function showLoginPopup() {
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    checkIfBuilderShouldBeVisible();
   </script>
 </body>
 </html>
