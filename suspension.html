@@ -3,17 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose your Suspension</title>
+  <title>Choose Suspension</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Choose your Suspension</h1>
+    <h1>Choose Suspension</h1>
   </header>
 
   <main style="padding: 2rem;">
-    <p>Here you'd list engine options with details (we’ll add that soon).</p>
+    <div class="part-option">
+      <h2>Bilstein B16</h2>
+      <p>High-performance coilovers with adjustable damping</p>
+      <button class="select-btn" onclick="choose('Bilstein B16')">Add</button>
+    </div>
+
+    <div class="part-option">
+      <h2>KW V3 Coilovers</h2>
+      <p>Premium adjustable suspension for track and street</p>
+      <button class="select-btn" onclick="choose('KW V3 Coilovers')">Add</button>
+    </div>
+
     <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
+
+  <script>
+    function choose(name) {
+      localStorage.setItem('selected_suspension', name);
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
 </html>

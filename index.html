@@ -12,7 +12,7 @@
   </header>
 
   <main>
-    <div class="compatibility-bar success">
+    <div class="compatibility-bar success" id="compatibility-status">
       ✅ Compatibility: No issues or incompatibilities found.
     </div>
 
@@ -29,37 +29,37 @@
         <tbody>
           <tr>
             <td>Engine</td>
-            <td><a class="select-btn" href="engine.html">+ Choose an Engine</a></td>
+            <td id="engine-cell"></td>
             <td>—</td>
             <td>—</td>
           </tr>
           <tr>
             <td>Transmission</td>
-            <td><a class="select-btn" href="transmission.html">+ Choose a Transmission</a></td>
+            <td id="transmission-cell"></td>
             <td>—</td>
             <td>—</td>
           </tr>
           <tr>
             <td>Suspension</td>
-            <td><a class="select-btn" href="suspension.html">+ Choose Suspension</a></td>
+            <td id="suspension-cell"></td>
             <td>—</td>
             <td>—</td>
           </tr>
           <tr>
             <td>Brakes</td>
-            <td><a class="select-btn" href="brakes.html">+ Choose Brakes</a></td>
+            <td id="brakes-cell"></td>
             <td>—</td>
             <td>—</td>
           </tr>
           <tr>
             <td>Wheels</td>
-            <td><a class="select-btn" href="wheels.html">+ Choose Wheels</a></td>
+            <td id="wheels-cell"></td>
             <td>—</td>
             <td>—</td>
           </tr>
           <tr>
             <td>Frame (Chassis)</td>
-            <td><a class="select-btn" href="frame.html">+ Choose a Frame</a></td>
+            <td id="frame-cell"></td>
             <td>—</td>
             <td>—</td>
           </tr>
@@ -67,5 +67,32 @@
       </table>
     </section>
   </main>
+
+  <script>
+    const parts = ['engine', 'transmission', 'suspension', 'brakes', 'wheels', 'frame'];
+
+    parts.forEach(part => {
+      const saved = localStorage.getItem(`selected_${part}`);
+      const cell = document.getElementById(`${part}-cell`);
+
+      if (saved) {
+        cell.innerHTML = `
+          <span>${saved}</span>
+          <button class="select-btn" style="margin-left:1rem;" onclick="removePart('${part}')">❌ Remove</button>
+        `;
+      } else {
+        cell.innerHTML = `<a class="select-btn" href="${part}.html">+ Choose ${capitalize(part)}</a>`;
+      }
+    });
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1).replace('_', ' ');
+    }
+
+    function removePart(part) {
+      localStorage.removeItem(`selected_${part}`);
+      location.reload();
+    }
+  </script>
 </body>
 </html>

@@ -8,12 +8,30 @@
 </head>
 <body>
   <header>
-    <h1>Choose a Frame</h1>
+    <h1>Choose a Frame (Chassis)</h1>
   </header>
 
   <main style="padding: 2rem;">
-    <p>Here you'd list engine options with details (we’ll add that soon).</p>
+    <div class="part-option">
+      <h2>Mazda MX-5 Chassis</h2>
+      <p>Lightweight and balanced, ideal for nimble builds</p>
+      <button class="select-btn" onclick="choose('Mazda MX-5 Chassis')">Add</button>
+    </div>
+
+    <div class="part-option">
+      <h2>BMW E30 Shell</h2>
+      <p>Classic rear-wheel-drive chassis, known for handling</p>
+      <button class="select-btn" onclick="choose('BMW E30 Shell')">Add</button>
+    </div>
+
     <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
+
+  <script>
+    function choose(name) {
+      localStorage.setItem('selected_frame', name);
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
 </html>

@@ -3,17 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose your Wheels</title>
+  <title>Choose Wheels</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Choose your Wheels</h1>
+    <h1>Choose Wheels</h1>
   </header>
 
   <main style="padding: 2rem;">
-    <p>Here you'd list engine options with details (we’ll add that soon).</p>
+    <div class="part-option">
+      <h2>BBS LM</h2>
+      <p>Classic forged wheels with timeless motorsport styling</p>
+      <button class="select-btn" onclick="choose('BBS LM')">Add</button>
+    </div>
+
+    <div class="part-option">
+      <h2>Volk TE37</h2>
+      <p>Lightweight forged racing wheels made by Rays Engineering</p>
+      <button class="select-btn" onclick="choose('Volk TE37')">Add</button>
+    </div>
+
     <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
+
+  <script>
+    function choose(name) {
+      localStorage.setItem('selected_wheels', name);
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
 </html>

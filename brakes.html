@@ -3,17 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose your Brakes</title>
+  <title>Choose Brakes</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Choose your Brakes</h1>
+    <h1>Choose Brakes</h1>
   </header>
 
   <main style="padding: 2rem;">
-    <p>Here you'd list engine options with details (we’ll add that soon).</p>
+    <div class="part-option">
+      <h2>Brembo GT Kit</h2>
+      <p>High-performance braking system with ventilated rotors</p>
+      <button class="select-btn" onclick="choose('Brembo GT Kit')">Add</button>
+    </div>
+
+    <div class="part-option">
+      <h2>Wilwood Superlite</h2>
+      <p>Lightweight, powerful brakes for performance builds</p>
+      <button class="select-btn" onclick="choose('Wilwood Superlite')">Add</button>
+    </div>
+
     <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
+
+  <script>
+    function choose(name) {
+      localStorage.setItem('selected_brakes', name);
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
 </html>

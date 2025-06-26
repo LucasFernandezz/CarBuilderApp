@@ -12,8 +12,26 @@
   </header>
 
   <main style="padding: 2rem;">
-    <p>Here you'd list engine options with details (we’ll add that soon).</p>
+    <div class="part-option">
+      <h2>Honda K20C1</h2>
+      <p>2.0L turbocharged inline-4 from the Civic Type R</p>
+      <button class="select-btn" onclick="choose('Honda K20C1')">Add</button>
+    </div>
+
+    <div class="part-option">
+      <h2>Toyota 2JZ-GTE</h2>
+      <p>Legendary 3.0L inline-6 twin-turbo from the Supra MK4</p>
+      <button class="select-btn" onclick="choose('Toyota 2JZ-GTE')">Add</button>
+    </div>
+
     <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
+
+  <script>
+    function choose(name) {
+      localStorage.setItem('selected_engine', name);
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
 </html>

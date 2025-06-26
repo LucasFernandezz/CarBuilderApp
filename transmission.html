@@ -3,17 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose a Transmission type</title>
+  <title>Choose a Transmission</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Choose a Transmission type</h1>
+    <h1>Choose a Transmission</h1>
   </header>
 
   <main style="padding: 2rem;">
-    <p>Here you'd list engine options with details (we’ll add that soon).</p>
+    <div class="part-option">
+      <h2>Tremec T56</h2>
+      <p>6-speed manual, used in high-performance RWD cars</p>
+      <button class="select-btn" onclick="choose('Tremec T56')">Add</button>
+    </div>
+
+    <div class="part-option">
+      <h2>ZF 8HP</h2>
+      <p>8-speed automatic, used in BMWs and many modern vehicles</p>
+      <button class="select-btn" onclick="choose('ZF 8HP')">Add</button>
+    </div>
+
     <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
+
+  <script>
+    function choose(name) {
+      localStorage.setItem('selected_transmission', name);
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
 </html>
