@@ -1,0 +1,198 @@
+/* === GENERAL RESET === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #f4f6f8;
+  color: #1e1e1e;
+  padding: 1rem;
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+/* === HEADER AND TOOLBAR === */
+header {
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toolbar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.toolbar-btn {
+  padding: 0.5rem 1rem;
+  background-color: #0077cc;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toolbar-btn:hover {
+  background-color: #005fa3;
+}
+
+.toolbar-btn.disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* === USER AUTH STATUS === */
+.user-controls {
+  font-size: 0.9rem;
+}
+
+/* === BUILDER SECTION === */
+.builder-table table {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.builder-table th, .builder-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.builder-table th {
+  background-color: #f0f2f5;
+}
+
+.select-btn {
+  padding: 0.25rem 0.6rem;
+  background-color: #0077cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  margin-left: 0.5rem;
+}
+
+.select-btn:hover {
+  background-color: #005fa3;
+}
+
+.total-cost {
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+/* === POPUPS === */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-box {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.popup-ok-btn {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.popup-ok-btn:hover {
+  background-color: #005fa3;
+}
+
+.auth-input, textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+/* === COMPATIBILITY BAR === */
+.compatibility-bar {
+  background-color: #e7f6e7;
+  color: #2e7d32;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border-left: 5px solid #2e7d32;
+  border-radius: 4px;
+}
+
+/* === SAVED BUILDS LIST === */
+#saved-builds-list {
+  padding-top: 1rem;
+}
+
+#saved-builds-list button {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 0.3rem 0.7rem;
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#saved-builds-list button:hover {
+  background-color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toolbar-btn {
+    width: 100%;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
