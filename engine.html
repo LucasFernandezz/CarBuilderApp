@@ -3,44 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose an Engine</title>
+  <title>Select Engine</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Choose an Engine</h1>
+    <h1>Select Engine</h1>
+    <a href="index.html" class="back-link">⬅ Back to Builder</a>
   </header>
-
-  <main style="padding: 2rem;">
+  <main>
     <div class="part-option">
       <h2>Honda K20C1</h2>
-      <p>2.0L turbocharged inline-4 from the Civic Type R</p>
-      <ul class="part-stats">
-        <li><strong>Horsepower:</strong> 306 hp</li>
-        <li><strong>Weight:</strong> ~148 kg</li>
-        <li><strong>Price:</strong> $6,500 AUD</li>
-      </ul>
-      <button class="select-btn" onclick="choose('Honda K20C1')">Add</button>
+      <img src="images/honda_k20c1.png" alt="Honda K20C1" width="250">
+      <p><strong>Description:</strong> A turbocharged 2.0L inline-4 used in the Civic Type R.</p>
+      <p><strong>Horsepower:</strong> 306 HP</p>
+      <p><strong>Price:</strong> $6500 AUD</p>
+      <button onclick="selectPart('Honda K20C1')">Add</button>
     </div>
 
     <div class="part-option">
       <h2>Toyota 2JZ-GTE</h2>
-      <p>Legendary 3.0L inline-6 twin-turbo from the Supra MK4</p>
-      <ul class="part-stats">
-        <li><strong>Horsepower:</strong> 276–330 hp (stock)</li>
-        <li><strong>Weight:</strong> ~230 kg</li>
-        <li><strong>Price:</strong> $8,500 AUD</li>
-      </ul>
-      <button class="select-btn" onclick="choose('Toyota 2JZ-GTE')">Add</button>
+      <img src="images/toyota_2jz_gte.png" alt="Toyota 2JZ-GTE" width="250">
+      <p><strong>Description:</strong> A legendary 3.0L twin-turbo inline-6 known for extreme tuning potential.</p>
+      <p><strong>Horsepower:</strong> 320 HP</p>
+      <p><strong>Price:</strong> $8500 AUD</p>
+      <button onclick="selectPart('Toyota 2JZ-GTE')">Add</button>
     </div>
-
-    <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
 
   <script>
-    function choose(name) {
-      localStorage.setItem('selected_engine', name);
-      window.location.href = 'index.html';
+    function selectPart(name) {
+      localStorage.setItem("selected_engine", name);
+      window.location.href = "index.html";
     }
   </script>
 </body>

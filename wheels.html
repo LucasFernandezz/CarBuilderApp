@@ -1,46 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose Wheels</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Wheels</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Choose Wheels</h1>
+    <h1>Select Wheels</h1>
+    <a href="index.html" class="back-link">⬅ Back to Builder</a>
   </header>
 
-  <main style="padding: 2rem;">
+  <main>
     <div class="part-option">
       <h2>BBS LM</h2>
-      <p>Iconic multi-piece forged wheels</p>
-      <ul class="part-stats">
-        <li><strong>Diameter:</strong> 18 inches</li>
-        <li><strong>Weight:</strong> ~8.6 kg each</li>
-        <li><strong>Price:</strong> $5,500 AUD (set of 4)</li>
-      </ul>
-      <button class="select-btn" onclick="choose('BBS LM')">Add</button>
+      <img src="images/bbs_lm.png" alt="BBS LM" width="250">
+      <p><strong>Description:</strong> Iconic lightweight forged wheels combining elegance with motorsport strength.</p>
+      <p><strong>Weight:</strong> 8.6 kg</p>
+      <p><strong>Price:</strong> $5500 AUD</p>
+      <button onclick="selectPart('BBS LM')">Add</button>
     </div>
 
     <div class="part-option">
       <h2>Volk TE37</h2>
-      <p>Lightweight racing wheels made from forged aluminum</p>
-      <ul class="part-stats">
-        <li><strong>Diameter:</strong> 18 inches</li>
-        <li><strong>Weight:</strong> ~7.2 kg each</li>
-        <li><strong>Price:</strong> $4,800 AUD (set of 4)</li>
-      </ul>
-      <button class="select-btn" onclick="choose('Volk TE37')">Add</button>
+      <img src="images/volk_te37.png" alt="Volk TE37" width="250">
+      <p><strong>Description:</strong> Famous JDM racing wheels known for ultra-light performance and strength.</p>
+      <p><strong>Weight:</strong> 7.2 kg</p>
+      <p><strong>Price:</strong> $4800 AUD</p>
+      <button onclick="selectPart('Volk TE37')">Add</button>
     </div>
-
-    <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
 
   <script>
-    function choose(name) {
-      localStorage.setItem('selected_wheels', name);
-      window.location.href = 'index.html';
+    function selectPart(name) {
+      localStorage.setItem("selected_wheels", name);
+      window.location.href = "index.html";
     }
   </script>
 </body>

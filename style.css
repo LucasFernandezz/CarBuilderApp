@@ -162,6 +162,12 @@ header {
   border-radius: 4px;
 }
 
+.compatibility-bar.error {
+  background-color: #ffeaea;
+  color: #c62828;
+  border-left-color: #c62828;
+}
+
 /* === SAVED BUILDS LIST === */
 #saved-builds-list {
   padding-top: 1rem;

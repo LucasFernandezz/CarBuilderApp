@@ -1,46 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose a Frame</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Frame</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Choose a Frame (Chassis)</h1>
+    <h1>Select Frame (Chassis)</h1>
+    <a href="index.html" class="back-link">⬅ Back to Builder</a>
   </header>
 
-  <main style="padding: 2rem;">
+  <main>
     <div class="part-option">
       <h2>Mazda MX-5 Chassis</h2>
-      <p>Compact, lightweight chassis ideal for beginners</p>
-      <ul class="part-stats">
-        <li><strong>Weight:</strong> ~230 kg</li>
-        <li><strong>Wheelbase:</strong> 2,310 mm</li>
-        <li><strong>Price:</strong> $3,200 AUD</li>
-      </ul>
-      <button class="select-btn" onclick="choose('Mazda MX-5 Chassis')">Add</button>
+      <img src="images/mx5_chassis.png" alt="Mazda MX-5 Chassis" width="250">
+      <p><strong>Description:</strong> Lightweight and agile platform ideal for new builders and casual racing.</p>
+      <p><strong>Rigidity:</strong> Medium</p>
+      <p><strong>Price:</strong> $3200 AUD</p>
+      <button onclick="selectPart('Mazda MX-5 Chassis')">Add</button>
     </div>
 
     <div class="part-option">
       <h2>BMW E30 Shell</h2>
-      <p>Rear-wheel-drive chassis with balanced proportions</p>
-      <ul class="part-stats">
-        <li><strong>Weight:</strong> ~280 kg</li>
-        <li><strong>Wheelbase:</strong> 2,570 mm</li>
-        <li><strong>Price:</strong> $4,000 AUD</li>
-      </ul>
-      <button class="select-btn" onclick="choose('BMW E30 Shell')">Add</button>
+      <img src="images/e30_shell.png" alt="BMW E30 Shell" width="250">
+      <p><strong>Description:</strong> Classic and robust rear-wheel-drive chassis with wide tuning support.</p>
+      <p><strong>Rigidity:</strong> High</p>
+      <p><strong>Price:</strong> $4000 AUD</p>
+      <button onclick="selectPart('BMW E30 Shell')">Add</button>
     </div>
-
-    <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
 
   <script>
-    function choose(name) {
-      localStorage.setItem('selected_frame', name);
-      window.location.href = 'index.html';
+    function selectPart(name) {
+      localStorage.setItem("selected_frame", name);
+      window.location.href = "index.html";
     }
   </script>
 </body>

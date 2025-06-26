@@ -1,48 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose a Transmission</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Transmission</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Choose a Transmission</h1>
+    <h1>Select Transmission</h1>
+    <a href="index.html" class="back-link">⬅ Back to Builder</a>
   </header>
 
-  <main style="padding: 2rem;">
+  <main>
     <div class="part-option">
       <h2>Tremec T56</h2>
-      <p>6-speed manual, high performance and durable</p>
-      <ul class="part-stats">
-        <li><strong>Gears:</strong> 6-speed manual</li>
-        <li><strong>Max Torque:</strong> 700 Nm</li>
-        <li><strong>Weight:</strong> ~55 kg</li>
-        <li><strong>Price:</strong> $5,000 AUD</li>
-      </ul>
-      <button class="select-btn" onclick="choose('Tremec T56')">Add</button>
+      <img src="images/tremec_t56.png" alt="Tremec T56" width="250">
+      <p><strong>Description:</strong> A 6-speed manual transmission commonly used in muscle and performance cars.</p>
+      <p><strong>Gearing:</strong> Manual</p>
+      <p><strong>Price:</strong> $5000 AUD</p>
+      <button onclick="selectPart('Tremec T56')">Add</button>
     </div>
 
     <div class="part-option">
       <h2>ZF 8HP</h2>
-      <p>8-speed automatic, smooth and fast shifts</p>
-      <ul class="part-stats">
-        <li><strong>Gears:</strong> 8-speed automatic</li>
-        <li><strong>Shift Speed:</strong> 200 ms</li>
-        <li><strong>Weight:</strong> ~87 kg</li>
-        <li><strong>Price:</strong> $6,500 AUD</li>
-      </ul>
-      <button class="select-btn" onclick="choose('ZF 8HP')">Add</button>
+      <img src="images/zf_8hp.png" alt="ZF 8HP" width="250">
+      <p><strong>Description:</strong> An 8-speed automatic found in modern BMWs and luxury vehicles, known for smooth performance.</p>
+      <p><strong>Gearing:</strong> Automatic</p>
+      <p><strong>Price:</strong> $6500 AUD</p>
+      <button onclick="selectPart('ZF 8HP')">Add</button>
     </div>
-
-    <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
 
   <script>
-    function choose(name) {
-      localStorage.setItem('selected_transmission', name);
-      window.location.href = 'index.html';
+    function selectPart(name) {
+      localStorage.setItem("selected_transmission", name);
+      window.location.href = "index.html";
     }
   </script>
 </body>

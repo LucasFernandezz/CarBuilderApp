@@ -1,46 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose Brakes</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Brakes</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Choose Brakes</h1>
+    <h1>Select Brakes</h1>
+    <a href="index.html" class="back-link">⬅ Back to Builder</a>
   </header>
 
-  <main style="padding: 2rem;">
+  <main>
     <div class="part-option">
       <h2>Brembo GT Kit</h2>
-      <p>High-end performance brakes with 6-piston calipers</p>
-      <ul class="part-stats">
-        <li><strong>Stopping Force:</strong> 1.2g deceleration</li>
-        <li><strong>Rotor Size:</strong> 355 mm</li>
-        <li><strong>Price:</strong> $4,200 AUD</li>
-      </ul>
-      <button class="select-btn" onclick="choose('Brembo GT Kit')">Add</button>
+      <img src="images/brembo_gt.png" alt="Brembo GT Kit" width="250">
+      <p><strong>Description:</strong> High-performance braking system trusted in motorsports and performance builds.</p>
+      <p><strong>Stopping Power:</strong> Excellent</p>
+      <p><strong>Price:</strong> $4200 AUD</p>
+      <button onclick="selectPart('Brembo GT Kit')">Add</button>
     </div>
 
     <div class="part-option">
       <h2>Wilwood Superlite</h2>
-      <p>Great value lightweight brakes for fast builds</p>
-      <ul class="part-stats">
-        <li><strong>Stopping Force:</strong> 1.0g deceleration</li>
-        <li><strong>Rotor Size:</strong> 330 mm</li>
-        <li><strong>Price:</strong> $3,000 AUD</li>
-      </ul>
-      <button class="select-btn" onclick="choose('Wilwood Superlite')">Add</button>
+      <img src="images/wilwood_superlite.png" alt="Wilwood Superlite" width="250">
+      <p><strong>Description:</strong> Lightweight, affordable performance brakes with strong track pedigree.</p>
+      <p><strong>Stopping Power:</strong> Great</p>
+      <p><strong>Price:</strong> $3000 AUD</p>
+      <button onclick="selectPart('Wilwood Superlite')">Add</button>
     </div>
-
-    <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
 
   <script>
-    function choose(name) {
-      localStorage.setItem('selected_brakes', name);
-      window.location.href = 'index.html';
+    function selectPart(name) {
+      localStorage.setItem("selected_brakes", name);
+      window.location.href = "index.html";
     }
   </script>
 </body>

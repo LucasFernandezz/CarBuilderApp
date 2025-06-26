@@ -1,46 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose Suspension</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Suspension</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Choose Suspension</h1>
+    <h1>Select Suspension</h1>
+    <a href="index.html" class="back-link">⬅ Back to Builder</a>
   </header>
 
-  <main style="padding: 2rem;">
+  <main>
     <div class="part-option">
       <h2>Bilstein B16</h2>
-      <p>Sporty ride with adjustable height and damping</p>
-      <ul class="part-stats">
-        <li><strong>Compression Strength:</strong> 9.0 kN</li>
-        <li><strong>Ride Height Range:</strong> 30–50 mm</li>
-        <li><strong>Price:</strong> $2,800 AUD</li>
-      </ul>
-      <button class="select-btn" onclick="choose('Bilstein B16')">Add</button>
+      <img src="images/bilstein_b16.png" alt="Bilstein B16" width="250">
+      <p><strong>Description:</strong> Performance suspension system for sporty and daily driving comfort.</p>
+      <p><strong>Compression Strength:</strong> Medium</p>
+      <p><strong>Price:</strong> $2800 AUD</p>
+      <button onclick="selectPart('Bilstein B16')">Add</button>
     </div>
 
     <div class="part-option">
       <h2>KW V3 Coilovers</h2>
-      <p>High-end suspension for track and street use</p>
-      <ul class="part-stats">
-        <li><strong>Compression Strength:</strong> 10.2 kN</li>
-        <li><strong>Ride Height Range:</strong> 20–45 mm</li>
-        <li><strong>Price:</strong> $3,600 AUD</li>
-      </ul>
-      <button class="select-btn" onclick="choose('KW V3 Coilovers')">Add</button>
+      <img src="images/kw_v3.png" alt="KW V3 Coilovers" width="250">
+      <p><strong>Description:</strong> Adjustable coilover suspension for maximum customization and performance.</p>
+      <p><strong>Compression Strength:</strong> High</p>
+      <p><strong>Price:</strong> $3600 AUD</p>
+      <button onclick="selectPart('KW V3 Coilovers')">Add</button>
     </div>
-
-    <a href="index.html" class="select-btn">← Back to Builder</a>
   </main>
 
   <script>
-    function choose(name) {
-      localStorage.setItem('selected_suspension', name);
-      window.location.href = 'index.html';
+    function selectPart(name) {
+      localStorage.setItem("selected_suspension", name);
+      window.location.href = "index.html";
     }
   </script>
 </body>
